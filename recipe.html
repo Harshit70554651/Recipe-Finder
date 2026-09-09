@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+    <link rel="stylesheet" href="recipe.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css"
+        integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+
+<body>
+    <div id="upper-container">
+        <h2> <span><i class="fa-solid fa-utensils"></i></span>Recipe Finder</h2>
+        <p style=" color: white; font-size: 13px; font-weight: 400; letter-spacing: 0.45px;">Find something Good to cook
+        </p>
+
+        <div class="input"><input type="text" placeholder="Try pasta, chicken e.g"><i
+                class="fa-solid fa-magnifying-glass search"></i></div>
+
+        <div class="category"><span>All</span>
+            <span>Indian</span>
+            <span>Italian</span>
+            <span>Mexican</span>
+        </div>
+    </div>
+    <div class="extra">
+        <h4>Recipe Found</h4>
+        <p><i class="fa-regular fa-heart"></i>Saved</p>
+    </div>
+    <div class="recipe-container">
+
+        <div class="recipe-detail">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/038/972/486/small_2x/ai-generated-chicken-korma-isolated-on-white-indian-cuisine-meat-curry-dish-with-coconut-milk-masala-asian-food-photo.jpg"
+                alt="image">
+            <p class="name">Chicken Curry</p>
+            <div class="style">
+                <p id="class">india</p>
+                <p class="cooking-time">30 min</p>
+            </div>
+        </div>
+        <div class="recipe-detail">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/038/972/486/small_2x/ai-generated-chicken-korma-isolated-on-white-indian-cuisine-meat-curry-dish-with-coconut-milk-masala-asian-food-photo.jpg"
+                alt=" image">
+            <p class="name">Chicken Curry</p>
+            <div class="style">
+                <p class="country">india</p>
+                <p class="cooking-time">30 min</p>
+            </div>
+        </div>
+    </div>
+    <div class="lower">
+        <img src="https://cdn.loveandlemons.com/wp-content/uploads/2025/02/301_LLBlog_FriedRice_47795-recipe.jpg" alt="food image">
+         <p class="name">Fried rice</p>
+         <div class="style">
+            <p class="country">India</p>
+            <p id="cooking-time">45 min</p>
+         </div>
+    </div>
+
+
+    <script src="recipe.js"></script>
+
+</body>
+
+</html>
