@@ -32,6 +32,7 @@ function renderRecipes(meals) {
         <div class="style">
         <p class="country">${meal.strArea}</p>
         </div>`;
+        card.addEventListener("click", ()=>openRecipeDetails(meal.idMeal));
         container.appendChild(card);
     });
 }
@@ -53,3 +54,27 @@ searchInput.addEventListener("keydown", (e) => {
         searchBtn.click();
     }
 });
+async function openRecipeDetails(id){
+
+    const response =await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const data =await response.json();
+    const meal = data.meals[0];
+    const modal =document.getElementById("modal")
+    modal.innerHTML= `<button class="close-btn" id="closeBtn">X</button>
+    <img src="${meal.strMealThumb}" style="width:100%; border-radius:12px;"/>
+    <h2>${meal.strMeal}</h2>
+    <p><strong>Cuisine</strong> ${meal.strArea}</p>
+    <h3>Instructions</h3>
+    <p>${meal.strInstructions}</p>
+    `;
+
+    document.getElementById("overlay").classList.add("active");
+    document.getElementById("closeBtn").addEventListener("click", closeModal);
+
+    
+
+}
+function closeModal(){
+    document.getElementById("overlay").classList.remove("active");
+
+}
