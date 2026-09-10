@@ -1,4 +1,20 @@
+let favorites = JSON.parse(localStorage.getItem("myFavorites")) || {};
+
+function toggleFavorites(meal, btn) {
+    if (favorites[meal.idMeal]) {
+        delete favorites[meal.idMeal];
+        btn.textContent = "🤍"
+
+    } else {
+        favorites[meal.idMeal] = meal;
+        btn.textContent = "❤️";
+    }
+    localStorage.setItem("myFavorites", JSON.stringify(favorites));
+}
+
+
 async function getRecipes(query) {
+
     const container = document.querySelector(".recipe-container");
 
     try {
@@ -20,20 +36,34 @@ async function getRecipes(query) {
     }
 }
 
+
 function renderRecipes(meals) {
     const container = document.querySelector(".recipe-container");
     container.innerHTML = "";
 
-    meals.forEach(meal => {
+    meals.forEach((meal, index) => {
         const card = document.createElement("div");
         card.className = "recipe-detail";
-        card.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-        <p class="name">${meal.strMeal}</p>
-        <div class="style">
-        <p class="country">${meal.strArea}</p>
-        </div>`;
-        card.addEventListener("click", ()=>openRecipeDetails(meal.idMeal));
+        card.style.animationDelay = `${index * 0.1}s`
+
+        card.innerHTML = `
+    <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+    <button class="fav-btn" data-id="${meal.idMeal}">🤍</button>
+    <p class="name">${meal.strMeal}</p>
+    <div class="style">
+    <p class="country">${meal.strArea}</p>
+    </div>`;
+        card.addEventListener("click", () => openRecipeDetails(meal.idMeal));
+
+        const favBtn = card.querySelector(".fav-btn")
+        favBtn.textContent = favorites[meal.idMeal] ? "❤️" : "🤍";
+
+        favBtn.addEventListener("click", (e) => {
+            e.stopPropagation()
+            toggleFavorites(meal, favBtn)
+        })
         container.appendChild(card);
+
     });
 }
 
@@ -54,14 +84,14 @@ searchInput.addEventListener("keydown", (e) => {
         searchBtn.click();
     }
 });
-async function openRecipeDetails(id){
+async function openRecipeDetails(id) {
 
-    const response =await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    const data =await response.json();
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const data = await response.json();
     const meal = data.meals[0];
-    const modal =document.getElementById("modal")
-    modal.innerHTML= `<button class="close-btn" id="closeBtn">X</button>
-    <img src="${meal.strMealThumb}" style="width:100%; border-radius:12px;"/>
+    const modal = document.getElementById("modal")
+    modal.innerHTML = `<button class="close-btn" id="closeBtn">X</button>
+    <img src="${meal.strMealThumb}" style="border-redius:20px; height:100px;"/>
     <h2>${meal.strMeal}</h2>
     <p><strong>Cuisine</strong> ${meal.strArea}</p>
     <h3>Instructions</h3>
@@ -71,10 +101,10 @@ async function openRecipeDetails(id){
     document.getElementById("overlay").classList.add("active");
     document.getElementById("closeBtn").addEventListener("click", closeModal);
 
-    
+
 
 }
-function closeModal(){
+function closeModal() {
     document.getElementById("overlay").classList.remove("active");
 
 }
